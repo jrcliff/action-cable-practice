@@ -18,13 +18,17 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    @message = Message.new(message_params)
+    message = Message.new(message_params)
+    room = Room.find(message_params['room_id'])
 
-    if @message.save
-      render :show, status: :created, location: @message
-    else
-      render json: @message.errors, status: :unprocessable_entity
-    end
+    if message.save
+      RoomsChannel.broadcast_to(room, {
+        room: RoomSerializer.new(room),
+        users: UserSerializer.new(room.users),
+        messages: MessageSerializer.new(room.messages)
+      })
+      end
+      render json: MessageSerializer.new(message)
   end
 
   # PATCH/PUT /messages/1

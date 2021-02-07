@@ -3,7 +3,7 @@ import { useState } from 'react-dom';
 import RoomShow from './Containers/RoomShow';
 import { Route, Redirect } from 'react-router-dom'
 
-function App() {
+function App(props) {
 
   const [state, setState] = useState({
     currentUser: null,

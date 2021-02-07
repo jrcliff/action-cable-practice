@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RoomWebSocket from '../Components/RoomWebSocket'
 
 export default function RoomShow(props) {
+
+
+
     return (
         <div>
             <RoomWebSocket 
